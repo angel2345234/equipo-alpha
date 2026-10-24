@@ -6,7 +6,8 @@ import { CrmService } from "./modules/crm/crm.service";
 import { FinanceController } from "./modules/finance/finance.controller";
 import { ReservationController } from "./modules/reservations/reservation.controller";
 import { OperationController } from "./modules/operations/operation.controller";
-
+import commercialRoutes from "./modules/analytics/commercial.routes";
+import transactionRoutes from "./modules/analytics/transaction.routes"; 
 import { startReservationExpirationScheduler } from "./modules/reservations/reservation-expiration.scheduler";
 dotenv.config();
 
@@ -80,6 +81,11 @@ app.post("/api/reservations/:id/convert", OperationController.convertReservation
 // --- FINANCE MODULE (FIN-001: Amortización Francesa) ---
 
 app.post("/api/quotes/simulate", FinanceController.simulateQuote);
+
+// --- ANALYTICS MODULE (ALP4-004 & ALP4-005) ---
+
+app.use("/api/analytics", commercialRoutes);
+app.use("/api/analytics", transactionRoutes);
 
 const PORT = process.env.PORT || 8082;
 
