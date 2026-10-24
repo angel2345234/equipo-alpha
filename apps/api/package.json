@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "db:init": "tsx src/scripts/init-db.ts"
+    "db:init": "tsx src/scripts/init-db.ts",
+    "db:analytics:seed": "tsx src/scripts/seed-analytics-dimensions.ts",
+    "db:analytics:verify": "tsx src/scripts/verify-analytics-foundation.ts"
   },
   "keywords": [],
   "author": "",
