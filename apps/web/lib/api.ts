@@ -107,3 +107,24 @@ export async function simulateQuote(payload: QuoteSimulationPayload): Promise<Qu
 
   return res.json();
 }
+export interface Lead {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  source: string;
+  status: string;
+  created_at: string;
+  asset_code?: string | null;
+  asset_title?: string | null;
+}
+
+export async function getLeads(): Promise<Lead[]> {
+  const res = await fetch(`${API_URL}/leads`, { cache: "no-store" });
+
+  if (!res.ok) {
+    throw new Error("Error al obtener los leads");
+  }
+
+  return res.json();
+}

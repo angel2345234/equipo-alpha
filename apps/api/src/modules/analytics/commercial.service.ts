@@ -1,4 +1,5 @@
 import { neon } from '@neondatabase/serverless';
+import { AnalyticsValidation } from './analytics.validation';
 
 const getSql = () => {
   const connectionString = process.env.DATABASE_URL;
@@ -63,6 +64,8 @@ export class CommercialService {
    * Inserta un nuevo registro en fact_lead (ALP4-004)
    */
   static async insertLeadFact(data: LeadFactInput) {
+    AnalyticsValidation.lead(data);
+
     const sql = getSql();
     const result = await sql`
       INSERT INTO fact_lead (
@@ -93,6 +96,8 @@ export class CommercialService {
    * Inserta un nuevo registro en fact_visit (ALP4-004)
    */
   static async insertVisitFact(data: VisitFactInput) {
+    AnalyticsValidation.visit(data);
+
     const sql = getSql();
     const result = await sql`
       INSERT INTO fact_visit (
@@ -125,6 +130,8 @@ export class CommercialService {
    * Inserta un nuevo registro en fact_reservation (ALP4-004)
    */
   static async insertReservationFact(data: ReservationFactInput) {
+    AnalyticsValidation.reservation(data);
+
     const sql = getSql();
     const result = await sql`
       INSERT INTO fact_reservation (
@@ -157,6 +164,8 @@ export class CommercialService {
    * Inserta un nuevo registro en fact_opportunity (ALP4-004)
    */
   static async insertOpportunityFact(data: OpportunityFactInput) {
+    AnalyticsValidation.opportunity(data);
+    
     const sql = getSql();
     const result = await sql`
       INSERT INTO fact_opportunity (

@@ -1,17 +1,23 @@
-import { getAssets } from "../lib/api";
+import { getAssets, getLeads } from "../lib/api";
 import AssetCatalog from "./AssetCatalog";
+import DashboardShell from "./DashboardShell";
 
 export default async function HomePage() {
-  const assets = await getAssets();
+  const [assets, leads] = await Promise.all([
+    getAssets(),
+    getLeads(),
+  ]);
+
+  const availableAssets = assets.filter(
+    (asset) => asset.status === "AVAILABLE",
+  ).length;
 
   return (
-    <main style={{ padding: "2rem", fontFamily: "sans-serif", maxWidth: "1100px", margin: "0 auto" }}>
-      <header style={{ borderBottom: "1px solid #e5e7eb", paddingBottom: "1rem", marginBottom: "2rem" }}>
-        <h1 style={{ fontSize: "1.8rem", color: "#111827", margin: 0 }}>ZENPLUS · Catálogo de Propiedades</h1>
-        <p style={{ color: "#6b7280", marginTop: "0.5rem" }}>Inventario disponible en tiempo real</p>
-      </header>
-
+    <DashboardShell
+      availableAssets={availableAssets}
+      totalLeads={leads.length}
+    >
       <AssetCatalog initialAssets={assets} />
-    </main>
+    </DashboardShell>
   );
 }
