@@ -15,55 +15,9 @@ if (!connectionString) {
 const sql = neon(connectionString);
 
 async function runMigration() {
-  console.log("⏳ Conectando a Neon y ejecutando migraciones...");
+  console.log("⏳ Conectando a Neon y ejecutando migración de analíticas...");
 
   try {
-    // 1. Tabla para ALP5-001: Knowledge Source Registry
-    await sql`
-      CREATE TABLE IF NOT EXISTS knowledge_sources (
-        id SERIAL PRIMARY KEY,
-        source_name VARCHAR(255) NOT NULL,
-        owner VARCHAR(255) NOT NULL,
-        type VARCHAR(100) NOT NULL,
-        sensitivity VARCHAR(50) NOT NULL,
-        validity_date TIMESTAMP,
-        permissions TEXT NOT NULL,
-        status VARCHAR(50) NOT NULL,
-        origin_url TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-    console.log("✅ Tabla 'knowledge_sources' creada/verificada exitosamente.");
-
-    // 2. Tablas para ALP5-002: Knowledge Data Model
-    await sql`
-      CREATE TABLE IF NOT EXISTS knowledge_documents (
-        id SERIAL PRIMARY KEY,
-        source_id INT NOT NULL REFERENCES knowledge_sources(id) ON DELETE CASCADE,
-        title VARCHAR(255) NOT NULL,
-        author VARCHAR(255),
-        version VARCHAR(50) DEFAULT '1.0',
-        content TEXT NOT NULL,
-        metadata JSONB,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-    console.log("✅ Tabla 'knowledge_documents' creada/verificada exitosamente.");
-
-    await sql`
-      CREATE TABLE IF NOT EXISTS knowledge_chunks (
-        id SERIAL PRIMARY KEY,
-        document_id INT NOT NULL REFERENCES knowledge_documents(id) ON DELETE CASCADE,
-        chunk_index INT NOT NULL,
-        content TEXT NOT NULL,
-        token_count INT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-    console.log("✅ Tabla 'knowledge_chunks' creada/verificada exitosamente.");
-
-    // 3. Tablas analíticas existentes
     await sql`
       CREATE TABLE IF NOT EXISTS fact_lead (
           id_fact_lead_sk SERIAL PRIMARY KEY,
@@ -183,7 +137,7 @@ async function runMigration() {
       );
     `;
 
-    console.log("✅ ¡Todas las migraciones se ejecutaron exitosamente en Neon!");
+    console.log("✅ ¡Tablas de hechos creadas exitosamente en Neon!");
   } catch (error) {
     console.error("❌ Error al ejecutar la migración:", error);
   }
