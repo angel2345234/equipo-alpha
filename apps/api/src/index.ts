@@ -7,9 +7,10 @@ import { FinanceController } from "./modules/finance/finance.controller";
 import { ReservationController } from "./modules/reservations/reservation.controller";
 import { OperationController } from "./modules/operations/operation.controller";
 import commercialRoutes from "./modules/analytics/commercial.routes";
-import transactionRoutes from "./modules/analytics/transaction.routes"; 
+import transactionRoutes from "./modules/analytics/transaction.routes";
 import xeniaRoutes from "./modules/xenia/xenia.routes";
 import { startReservationExpirationScheduler } from "./modules/reservations/reservation-expiration.scheduler";
+import ingestionRoutes from "./modules/ingestion/ingestion.routes";
 dotenv.config();
 
 const app = express();
@@ -87,6 +88,7 @@ app.post("/api/quotes/simulate", FinanceController.simulateQuote);
 
 app.use("/api/analytics", commercialRoutes);
 app.use("/api/analytics", transactionRoutes);
+app.use("/api/ingestion", ingestionRoutes);
 
 // --- XENIA MODULE (ALP5-009 & ALP5-010) ---
 
