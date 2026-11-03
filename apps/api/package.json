@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "test": "tsx --test \"src/**/*.test.ts\"",
     "db:init": "tsx src/scripts/init-db.ts",
     "db:ingestion:migrate": "tsx src/scripts/migrate-ingestion.ts",
     "db:ingestion:permissions:migrate": "tsx src/scripts/migrate-ingestion-permissions.ts",
