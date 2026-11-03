@@ -3,7 +3,7 @@ import { pool } from "../../db";
 /**
  * ALP5-010: XENIA Safe Aggregates.
  *
- * Lee las vistas agregadas (sin PII) de la migración 006 y las devuelve con
+ * Lee las vistas agregadas (sin PII) de la migración 007 y las devuelve con
  * su procedencia (provenance), según el contrato transversal de XENIA:
  * fuente, sensibilidad, fecha de actualización de la fuente y fecha de consulta.
  */

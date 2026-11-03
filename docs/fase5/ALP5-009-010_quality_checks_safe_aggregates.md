@@ -75,7 +75,7 @@ Todas las respuestas de agregados incluyen un bloque `provenance` (contrato tran
 | `apps/api/src/modules/xenia/knowledge-quality.service.ts` | Checks de calidad (ALP5-009) |
 | `apps/api/src/modules/xenia/xenia-aggregates.service.ts` | Lectura de vistas + provenance (ALP5-010) |
 | `apps/api/src/modules/xenia/xenia.controller.ts` / `xenia.routes.ts` | Endpoints `/api/xenia/*` |
-| `apps/api/src/db/migrations/006_create_xenia_safe_aggregates.sql` | Vistas `agg_xenia_*` (idempotente) |
+| `apps/api/src/db/migrations/007_create_xenia_safe_aggregates.sql` | Vistas `agg_xenia_*` (idempotente) |
 | `apps/api/src/scripts/test-knowledge-quality.ts` | Prueba con defectos plantados en esquema temporal |
 | `apps/api/src/scripts/run-xenia-aggregates.ts` | Aplica 006 + guardia PII + reconciliación |
 | `apps/api/src/index.ts`, `apps/api/package.json` | Registro de rutas y scripts |
@@ -83,7 +83,7 @@ Todas las respuestas de agregados incluyen un bloque `provenance` (contrato tran
 ```bash
 # Desde apps/api
 npm run test:xenia:quality     # prueba ALP5-009 (crea y borra knowledge_qa_fixture)
-npm run db:xenia:aggregates    # aplica 006 y verifica ALP5-010
+npm run db:xenia:aggregates    # aplica 007 y verifica ALP5-010
 ```
 
 ---
@@ -116,7 +116,7 @@ npm run db:xenia:aggregates    # aplica 006 y verifica ALP5-010
 
 - **Dependencia ALP5-001/002:** el 009 se valida con datos de prueba; con el modelo real, revisar que las columnas coincidan con el contrato de la sección 2.
 - **Seguridad (bloqueante para exponer):** la API no tiene autenticación ni RBAC. Los endpoints INTERNAL (`/knowledge/quality`, `/aggregates/lead-demand`) no deben exponerse fuera de la red interna hasta que Security implemente control por rol.
-- **Numeración de migraciones:** `004` y `005` son de ALP5-003/004 (Angel, 02/11); esta migración usa `006`. El snapshot ALP4-006 (`004_create_inventory_snapshot.sql`, aún sin PR) choca con el `004` de Angel y debe renumerarse. Acordar la numeración en equipo.
+- **Numeración de migraciones:** `004`-`005` son de ALP5-003/004 (Angel) y `006` de ALP5-007 (Cristian); esta migración usa `007`. El snapshot ALP4-006 (`004_create_inventory_snapshot.sql`, aún sin PR) choca con el `004` de Angel y debe renumerarse. Acordar la numeración en equipo.
 - **Modelo de permisos:** ALP5-004 (Angel) guarda clasificación y roles en `analytics.ingestion_runs` (`classification`, `allowed_roles`, `data_scopes`); el check `missing_permissions` revisa `knowledge_sources.permissions` (diseño revertido de ALP5-001/002). Acordar cuál es la tabla oficial y ajustar el check.
 - **Hallazgo de datos:** 9 de 20 leads tienen `asset_id` que no existe en `inventory.assets` (aparecen como `SIN ACTIVO`). Revisar integridad referencial de `crm.leads.asset_id`.
 - **Hallazgo de datos:** el proyecto "Residencial Zenplus Los Álamos" no tiene `district`; sus leads aparecen como `SIN DISTRITO`.

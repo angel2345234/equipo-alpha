@@ -1,5 +1,5 @@
 -- ============================================================================
--- MIGRACIÓN 006: XENIA SAFE AGGREGATES (ALP5-010)
+-- MIGRACIÓN 007: XENIA SAFE AGGREGATES (ALP5-010)
 -- FASE 5: XENIA Intelligence & AI
 -- Célula Alpha - Zenplus OS
 --
@@ -13,7 +13,7 @@
 --     (k-anonimidad, k = 3) para evitar identificar personas por descarte.
 --
 -- Idempotente: CREATE OR REPLACE VIEW.
--- Nota de numeración: 004 y 005 = ALP5-003/004 (ingesta y permisos, Angel).
+-- Nota de numeración: 004-005 = ALP5-003/004 (Angel), 006 = ALP5-007 market mart (Cristian).
 -- ============================================================================
 
 BEGIN;

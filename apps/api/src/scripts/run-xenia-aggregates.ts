@@ -4,7 +4,7 @@ import { pool } from "../db";
 import { AGGREGATES, PII_COLUMN_PATTERN, XeniaAggregatesService } from "../modules/xenia/xenia-aggregates.service";
 
 /**
- * ALP5-010: aplica la migración 006 y verifica los XENIA Safe Aggregates.
+ * ALP5-010: aplica la migración 007 y verifica los XENIA Safe Aggregates.
  *
  *   1. Guardia PII: ninguna vista tiene columnas de datos personales.
  *   2. Reconciliación de inventario: la suma de la vista = activos publicados en OLTP.
@@ -26,9 +26,9 @@ async function main() {
     console.log("=======================================================\n");
 
     // 0. Migración idempotente
-    const migrationPath = path.resolve(__dirname, "../db/migrations/006_create_xenia_safe_aggregates.sql");
+    const migrationPath = path.resolve(__dirname, "../db/migrations/007_create_xenia_safe_aggregates.sql");
     await pool.query(fs.readFileSync(migrationPath, "utf-8"));
-    console.log("[MIGRATION] 006_create_xenia_safe_aggregates.sql aplicada\n");
+    console.log("[MIGRATION] 007_create_xenia_safe_aggregates.sql aplicada\n");
 
     // 1. Guardia PII sobre las columnas de las vistas
     console.log("[1] Guardia PII");
