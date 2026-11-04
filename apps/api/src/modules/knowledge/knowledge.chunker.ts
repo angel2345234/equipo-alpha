@@ -73,38 +73,44 @@ export function createKnowledgeChunks(
       });
     };
 
+    const getOverlap = (tokens: number[]): number[] => {
+      if (overlapTokens === 0) {
+        return [];
+      }
+
+      return tokens.slice(-overlapTokens);
+    };
+
     for (const sentence of sentences) {
-      const sentenceTokens = encoding.encode(sentence);
+      let remainingTokens = Array.from(encoding.encode(sentence));
 
-      if (sentenceTokens.length > maxTokens) {
-        if (currentTokens.length > 0) {
-          saveChunk(currentTokens);
-          currentTokens = [];
-        }
-
-        let offset = 0;
-
-        while (offset < sentenceTokens.length) {
-          const end = Math.min(offset + maxTokens, sentenceTokens.length);
-          const part = sentenceTokens.slice(offset, end);
-
-          saveChunk(part);
-
-          if (end >= sentenceTokens.length) break;
-
-          offset = end - overlapTokens;
-        }
-
+      if (currentTokens.length + remainingTokens.length <= maxTokens) {
+        currentTokens.push(...remainingTokens);
         continue;
       }
 
-      if (currentTokens.length + sentenceTokens.length > maxTokens) {
+      // Guarda el fragmento actual antes de añadir la siguiente oración.
+      if (currentTokens.length > 0) {
         saveChunk(currentTokens);
+        currentTokens = getOverlap(currentTokens);
+      }
 
-        const overlap = currentTokens.slice(-overlapTokens);
-        currentTokens = [...overlap, ...sentenceTokens];
-      } else {
-        currentTokens.push(...sentenceTokens);
+      // Añade los tokens restantes respetando siempre maxTokens.
+      while (remainingTokens.length > 0) {
+        const availableSpace = maxTokens - currentTokens.length;
+        const tokensToAdd = Math.min(
+          availableSpace,
+          remainingTokens.length,
+        );
+
+        currentTokens.push(...remainingTokens.slice(0, tokensToAdd));
+        remainingTokens = remainingTokens.slice(tokensToAdd);
+
+        // Si quedan tokens, guarda el fragmento y continúa con solapamiento.
+        if (remainingTokens.length > 0) {
+          saveChunk(currentTokens);
+          currentTokens = getOverlap(currentTokens);
+        }
       }
     }
 
@@ -117,6 +123,6 @@ export function createKnowledgeChunks(
     // Libera los recursos del tokenizador cuando la API lo permite.
     if ("free" in encoding && typeof encoding.free === "function") {
       encoding.free();
+    }
   }
-}
 }
