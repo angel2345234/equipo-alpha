@@ -100,7 +100,7 @@ export default function LeadModal({ assetId, assetTitle, onClose }: LeadModalPro
               <button
                 type="submit"
                 disabled={status === "LOADING"}
-                style={{ flex: 1, padding: "0.6rem", background: "#2563eb", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer" }}
+                style={{ flex: 1, padding: "0.6rem", background: "var(--sidebar)", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer" }}
               >
                 {status === "LOADING" ? "Enviando..." : "Enviar"}
               </button>

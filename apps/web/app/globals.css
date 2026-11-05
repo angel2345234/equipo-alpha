@@ -1,20 +1,24 @@
 :root {
   color-scheme: light;
-  --background: #f5f7fb;
-  --foreground: #172033;
+  --background: #f8f7f3;
+  --foreground: #1a1e24;
   --surface: #ffffff;
-  --surface-muted: #f8fafc;
-  --border: #e5eaf1;
-  --muted: #718096;
-  --primary: #2457d6;
-  --primary-dark: #1945b3;
-  --sidebar: #14213d;
-  --sidebar-muted: #a9b6cc;
+  --surface-muted: #fbfaf6;
+  --border: #e7e3d8;
+  --muted: #5b616b;
+  --primary: #9d7026;
+  --primary-dark: #7c581c;
+  --sidebar: #070d19;
+  --sidebar-muted: #a8adb8;
   --success: #16865b;
   --warning: #b7791f;
   --danger: #c24141;
+  /* Marca ZENPLUS (guía de ejecución Alpha) */
+  --gold: #d9af4f;
+  --gold-light: #f5ce68;
+  --gold-soft: #f2e8cf;
   --radius: 14px;
-  --shadow: 0 4px 18px rgba(23, 32, 51, 0.05);
+  --shadow: 0 4px 18px rgba(7, 13, 25, 0.05);
 }
 
 * {

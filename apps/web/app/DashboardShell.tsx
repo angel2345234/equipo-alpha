@@ -1,12 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type ReactNode } from "react";
+import DashboardCharts, { type DashboardChartsData } from "./DashboardCharts";
 import styles from "./dashboard.module.css";
 
 type DashboardShellProps = {
   children: ReactNode;
   availableAssets: number;
   totalLeads: number;
+  charts: DashboardChartsData;
 };
 
 const navigation = [
@@ -44,6 +47,7 @@ export default function DashboardShell({
   children,
   availableAssets,
   totalLeads,
+  charts,
 }: DashboardShellProps) {
   const [activeSection, setActiveSection] = useState<SectionId>("resumen");
 
@@ -55,9 +59,18 @@ export default function DashboardShell({
     <div className={styles.dashboard}>
       <aside className={styles.sidebar}>
         <div className={styles.brand}>
-          <div className={styles.brandMark}>Z</div>
+          <Image
+            src="/zenplus-logo.png"
+            alt="Logo de ZENPLUS"
+            width={46}
+            height={46}
+            className={styles.brandLogo}
+            priority
+          />
           <div>
-            <strong>ZENPLUS</strong>
+            <strong>
+              ZEN<span className={styles.brandAccent}>PLUS</span>
+            </strong>
             <span>OPERATING SYSTEM</span>
           </div>
         </div>
@@ -144,6 +157,8 @@ export default function DashboardShell({
                   </article>
                 ))}
               </div>
+
+              <DashboardCharts data={charts} />
 
               <section className={styles.panel}>
                 <div className={styles.panelHeading}>

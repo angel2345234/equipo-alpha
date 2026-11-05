@@ -158,7 +158,7 @@ export default function QuoteModal({ asset, onClose }: QuoteModalProps) {
             </div>
             <div>
               <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Cuota Mensual Aprox.</span>
-              <div style={{ fontSize: "1.1rem", fontWeight: "bold", color: "#2563eb" }}>
+              <div style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--primary-dark)" }}>
                 USD {result.monthlyPayment.toLocaleString("en-US")}
               </div>
             </div>

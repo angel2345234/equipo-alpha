@@ -5,9 +5,13 @@
 }
 
 .sidebar {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
   width: 250px;
   min-width: 250px;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding: 26px 18px;
@@ -22,16 +26,20 @@
   padding: 4px 8px 34px;
 }
 
-.brandMark {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
+.brandLogo {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
   border-radius: 12px;
-  background: var(--primary);
-  color: #ffffff;
-  font-size: 23px;
-  font-weight: 800;
+  box-shadow: 0 0 0 1px rgba(217, 175, 79, 0.35);
+}
+
+.brand .brandAccent {
+  display: inline;
+  margin: 0;
+  color: var(--gold);
+  font-size: inherit;
+  letter-spacing: inherit;
 }
 
 .brand strong,
@@ -85,9 +93,14 @@
 }
 
 .navItemActive {
-  color: #ffffff;
-  background: var(--primary);
-  font-weight: 600;
+  color: var(--sidebar);
+  background: var(--gold);
+  font-weight: 700;
+}
+
+.navItemActive:hover {
+  color: var(--sidebar);
+  background: var(--gold-light);
 }
 
 .navIcon {
@@ -171,7 +184,7 @@
   border: 1px solid var(--border);
   border-radius: 50%;
   color: var(--primary);
-  background: #eef3ff;
+  background: var(--gold-soft);
   font-weight: 700;
 }
 
@@ -224,6 +237,7 @@
   gap: 10px;
   padding: 21px;
   border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -347,6 +361,187 @@
   font-size: 11px;
 }
 
+/* ---------- Gráficas del resumen ejecutivo ---------- */
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.chartCard {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.chartHero {
+  justify-content: center;
+  color: #ffffff;
+  border-color: var(--sidebar);
+  background: var(--sidebar);
+}
+
+.chartTitle {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.chartSubtitle {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.chartHero .chartSubtitle,
+.chartHero .chartFootnote {
+  color: var(--sidebar-muted);
+}
+
+.heroValue {
+  margin-top: 6px;
+  color: var(--gold);
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.progressTrack {
+  display: block;
+  height: 8px;
+  margin-top: 14px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--gold);
+}
+
+.chartFootnote {
+  margin-top: 8px;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+}
+
+.barList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+  list-style: none;
+}
+
+.barRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(110px, 38%) 1fr 32px;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 6px;
+  margin: 0 -6px;
+  border-radius: 6px;
+  outline: none;
+  cursor: default;
+}
+
+.barRow:hover,
+.barRow:focus-visible {
+  background: var(--surface-muted);
+}
+
+.barRow:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+.barRow:hover .barFill,
+.barRow:focus-visible .barFill {
+  background: var(--primary-dark);
+}
+
+/* Tooltip propio: aparece al instante sobre la barra */
+.barTooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 38%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  border: 1px solid rgba(217, 175, 79, 0.4);
+  border-radius: 8px;
+  color: var(--sidebar-muted);
+  background: var(--sidebar);
+  box-shadow: 0 6px 18px rgba(7, 13, 25, 0.18);
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.barTooltip strong {
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.barRow:hover .barTooltip,
+.barRow:focus-visible .barTooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.barLabel {
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barTrack {
+  display: block;
+  height: 10px;
+  border-radius: 4px;
+  background: #f1eee5;
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--primary);
+  transition: background 0.2s;
+}
+
+.barValue {
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.chartEmpty {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
 @media (max-width: 1100px) {
   .metricsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -362,10 +557,17 @@
     flex-direction: column;
   }
 
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+
   .sidebar {
     width: 100%;
     min-width: 0;
-    min-height: auto;
+    height: auto;
+    align-self: stretch;
+    overflow-y: visible;
+    z-index: 10;
     padding: 15px;
   }
 
