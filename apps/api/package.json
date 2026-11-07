@@ -11,7 +11,9 @@
     "db:ingestion:permissions:migrate": "tsx src/scripts/migrate-ingestion-permissions.ts",
     "db:analytics:seed": "tsx src/scripts/seed-analytics-dimensions.ts",
     "db:analytics:verify": "tsx src/scripts/verify-analytics-foundation.ts",
-    "db:market-mart:migrate": "tsx src/scripts/migrate-market-mart.ts"
+    "db:market-mart:migrate": "tsx src/scripts/migrate-market-mart.ts",
+    "db:xenia:aggregates": "tsx src/scripts/run-xenia-aggregates.ts",
+    "test:xenia:quality": "tsx src/scripts/test-knowledge-quality.ts"
   },
   "keywords": [],
   "author": "",
