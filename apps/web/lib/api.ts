@@ -10,6 +10,8 @@ export interface Asset {
   title: string;
   type: string;
   status: string;
+  commercial_status?: string;
+  publication_status?: string;
   price: string;
   currency: string;
   area: string;
